@@ -1,4 +1,5 @@
 #include <iostream>
+#include<string>
 using namespace std;
 
 class Book {
@@ -36,28 +37,22 @@ public:
     }
 };
 
-int main() {
+int main(int argc, char* argv[]) {
     const int SIZE = 5;
-    Book books[SIZE];
-    
-    for (int i = 0; i < SIZE; i++) {
-        string title, isbn, author, publisher;
-        cout << "Enter details for Book " << i + 1 << ":\n";
-        cout << "Title: ";
-        cin >> title;
-        cout << "ISBN: ";
-        cin >> isbn;
-        cout << "Author: ";
-        cin >> author;
-        cout << "Publisher: ";
-        cin >> publisher;
-
-        books[i].setTitle(title);
-        books[i].setISBN(isbn);
-        books[i].setAuthor(author);
-        books[i].setPublisher(publisher);
+    if (argc != SIZE * 4 + 1) {
+        return 1;
     }
-    
+
+    Book books[SIZE];
+
+    int index = 1;
+    for (int i = 0; i < SIZE; i++) {
+        books[i].setTitle(argv[index++]);
+        books[i].setISBN(argv[index++]);
+        books[i].setAuthor(argv[index++]);
+        books[i].setPublisher(argv[index++]);
+    }
+
     for (int i = 0; i < SIZE; i++) {
         cout << "\nBook " << i + 1 << " Details:\n";
         cout << "Title: " << books[i].getTitle() << endl;
@@ -65,6 +60,6 @@ int main() {
         cout << "Author: " << books[i].getAuthor() << endl;
         cout << "Publisher: " << books[i].getPublisher() << endl;
     }
-    
+
     return 0;
 }
