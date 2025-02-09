@@ -1,40 +1,36 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-
-class Glass
-{
-    public:
+class Glass {
+public:
     int liquidlevel;
 
-    void drink(int millimeters)
-    {
-      refill();
+    void drink(int millimeters) {
+        refill();
     }
-   void refill()
-    {
-      liquidlevel=200;
+
+    void refill() {
+        liquidlevel = 200;
     }
 };
 
-int main()
-
-{
-    int mm,remaining=200;
-    
-    Glass g;
-    g.liquidlevel=200;
-
-do
-{
-    cout<<"Enter millimeters to drink"<<endl;
-    cin>>mm;
-
-    remaining=g.liquidlevel-mm;
-    if(remaining<100)
-    {
-    g.drink(remaining);
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        return 1;
     }
-}while(mm!=0);
-return 0;
+
+    int remaining = 200;
+    Glass g;
+    g.liquidlevel = 200;
+
+    for (int i = 1; i < argc; i++) {
+        int mm = stoi(argv[i]);
+        remaining = g.liquidlevel - mm;
+
+        if (remaining < 100) {
+            g.drink(remaining);
+        }
+    }
+
+    return 0;
 }
