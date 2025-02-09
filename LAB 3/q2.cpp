@@ -1,30 +1,27 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-class Date
-{
-    public:
+class Date {
+public:
     int day;
     int month;
     int year;
- 
- void displaydate()
- {
-    cout<<"Date is:"<<day<<"/"<<month<<"/"<<year<<endl;
- }
 
+    void displaydate() {
+        cout << "Date is: " << day << "/" << month << "/" << year << endl;
+    }
 };
-int main()
-{
+
+int main(int argc, char* argv[]) {
+    if (argc != 4) {
+        return 1;
+    }
+
     Date d;
-    cout<<"Enter date:"<<endl;
-    cin>>d.day;
-    cout<<"Enter month:"<<endl;
-    cin>>d.month;
-    cout<<"Enter year:"<<endl;
-    cin>>d.year;
+    d.day = stoi(argv[1]);
+    d.month = stoi(argv[2]);
+    d.year = stoi(argv[3]);
 
     d.displaydate();
     return 0;
-
 }
