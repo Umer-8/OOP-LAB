@@ -1,155 +1,105 @@
-#include<iostream>
+#include <iostream>
+#include<string>
 using namespace std;
 
-class Matrix
-{
-    public:
+class Matrix {
+public:
     int rows;
     int columns;
     int rows2;
     int columns2;
 
-    int** elements;
-    int** elements2;
+    int elements[2][2];
+    int elements2[2][2];
 
-    int getrows()
-    {
-    return rows;
-    }
-    int getcolumns()
-    {
-    return columns;
-    }
-    int getrows2()
-    {
-    return rows2;
-    }
-    int getcolumns2()
-    {
-    return columns2;
+    int getrows() { return rows; }
+    int getcolumns() { return columns; }
+    int getrows2() { return rows2; }
+    int getcolumns2() { return columns2; }
+
+    void setelements(int values[2][2]) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                elements[i][j] = values[i][j];
+            }
+        }
     }
 
-   void setelements(int a,int b)
-   {
-      elements = new int*[a];
-      for(int i=0;i<a;i++)
-      {
-        elements[i] = new int[b];
-        for(int j=0;j<b;j++)
-        {
-          cout<<"Enter element "<<j+1<<" of row "<<i+1<<endl;
-          cin>>elements[i][j];
+    void setelements2(int values[2][2]) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                elements2[i][j] = values[i][j];
+            }
         }
-      }
-   }
-   
-   void setelements2(int c,int d)
-   {
-      elements2 = new int*[c];
-      for(int i=0;i<c;i++)
-      {
-        elements2[i] = new int[d];
-        for(int j=0;j<d;j++)
-        {
-          cout<<"Enter element "<<j+1<<" of row "<<i+1<<endl;
-          cin>>elements2[i][j];
+    }
+
+    void addmatrix(int result[2][2]) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                result[i][j] = elements[i][j] + elements2[i][j];
+            }
         }
-      }   
-   }
-   void addmatrix(int a,int b,int c,int d, int** add)
-   {
-      if (a!=c || b!=d)
-      {
-        cout<<"Matrix cannot be added"<<endl;
-      }
-      else
-      {
-        for(int i=0;i<a;i++)
-        {
-          for(int j=0;j<b;j++)
-          {
-            add[i][j]=elements[i][j]+elements2[i][j];
-          }
-        }    
-      }
-   }
-   void multiplymatrix(int a, int b, int c, int d, int** mul)
-   {
-      if (b != c)
-      {
-          cout << "Matrix cannot be multiplied" << endl;
-      }
-      else
-      {
-          for(int i=0; i<a; i++)
-          {
-              for(int j=0; j<d; j++)
-              {
-                  mul[i][j] = 0;
-                  for(int k=0; k<b; k++)
-                  {
-                      mul[i][j] += elements[i][k] * elements2[k][j];
-                  }
-              }
-          }
-      }
-   }
-Matrix()
-{
-  rows=2;
-  columns=2;
-  rows2=2;
-  columns2=2;
-  elements = nullptr;
-  elements2 = nullptr;
-}
+    }
+
+    void multiplymatrix(int result[2][2]) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                result[i][j] = 0;
+                for (int k = 0; k < 2; k++) {
+                    result[i][j] += elements[i][k] * elements2[k][j];
+                }
+            }
+        }
+    }
+
+    Matrix() {
+        rows = 2;
+        columns = 2;
+        rows2 = 2;
+        columns2 = 2;
+    }
 };
 
+int main(int argc, char* argv[]) {
+    if (argc != 9) {
+        return 1;
+    }
 
-int main()
-{
-  Matrix mat;
+    Matrix mat;
+    int values1[2][2] = {
+        {stoi(argv[1]), stoi(argv[2])},
+        {stoi(argv[3]), stoi(argv[4])}
+    };
 
-  int a=mat.getrows();
-  int b=mat.getcolumns();
+    int values2[2][2] = {
+        {stoi(argv[5]), stoi(argv[6])},
+        {stoi(argv[7]), stoi(argv[8])}
+    };
 
-  int c=mat.getrows2();
-  int d=mat.getcolumns2();
+    mat.setelements(values1);
+    mat.setelements2(values2);
 
-  mat.setelements(a,b);
-  mat.setelements2(c,d);
+    int add_result[2][2];
+    mat.addmatrix(add_result);
 
-  int** result = new int*[a];
-  for(int i=0; i<a; i++)
-      result[i] = new int[b];
-  
-  mat.addmatrix(a,b,c,d,result);
+    cout << "Addition Result:" << endl;
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            cout << add_result[i][j] << " ";
+        }
+        cout << endl;
+    }
 
-  cout << "Addition Result:" << endl;
-  for(int i=0;i<a;i++)
-  {
-      for(int j=0;j<b;j++)
-      {
-        cout<<result[i][j]<<" ";
-      }
-      cout<<endl;
-  }
-  
-  int** mul = new int*[a];
-  for(int i=0; i<a; i++)
-      mul[i] = new int[d];
-  
-  mat.multiplymatrix(a,b,c,d,mul);
+    int mul_result[2][2];
+    mat.multiplymatrix(mul_result);
 
-  cout << "Multiplication Result:" << endl;
-  for(int i=0;i<a;i++)
-  {
-      for(int j=0;j<d;j++)
-      {
-        cout<<mul[i][j]<<" ";
-      }
-      cout<<endl;
-  }
-  
-  return 0;
+    cout << "Multiplication Result:" << endl;
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            cout << mul_result[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
 }
