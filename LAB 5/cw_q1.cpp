@@ -1,52 +1,71 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 class Engine
-{
-  private:
-  bool isRunning;
-  public:
-  Engine()
-  {
-    cout<<"Engine constructed."<<endl;
-  }
+    {
+private:
+    bool isRunning; 
+public:
+    Engine() : isRunning(false)
+    {
+        cout << "Engine constructed." << endl;
+    }
 
-  void start()
-  {
-    cout<<"Engine started."<<endl;
-  }
-  void stop()
-  {
-    cout<<"Engine stopped."<<endl;
-  }
-  ~Engine()
-  {
-    cout<<"Engine destroyed."<<endl;
-  }
+    void start() 
+        {
+        if (!isRunning) 
+        {
+            isRunning = true;
+            cout << "Engine started." << endl;
+        } else 
+        {
+            cout << "Engine is already running." << endl;
+        }
+    }
+
+    void stop()
+        {
+        if (isRunning)
+        {
+            isRunning = false;
+            cout << "Engine stopped." << endl;
+        } else 
+        {
+            cout << "Engine is already stopped." << endl;
+        }
+    }
+
+    ~Engine()
+    {
+        cout << "Engine destroyed." << endl;
+    }
 };
-class Car
-{ 
-    private:
+
+class Car {
+private:
     Engine e;
-    public:
+public:
     Car()
     {
-        cout<<"Car constructed."<<endl;
+        cout << "Car constructed." << endl;
     }
-    void startcar()
+
+    void startcar() 
     {
         e.start();
     }
+
     void stopCar()
     {
         e.stop();
     }
-    ~Car()
-    {
-        cout<<"Car destroyed."<<endl;
-    }
 
+    ~Car() 
+    {
+        cout << "Car destroyed." << endl;
+    }
 };
+
 int main()
 {
     Car c;
