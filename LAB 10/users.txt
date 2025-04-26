@@ -1,0 +1,2 @@
+Linus,Torvalds,Linux Lane,linus@linux.com
+Bill,Gates,Microsoft Way,bill@microsoft.com

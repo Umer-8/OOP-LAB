@@ -1,0 +1,3 @@
+Linux OS,Open source OS,0
+Windows,Proprietary OS,199
+MacOS,Apple OS,299
